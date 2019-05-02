@@ -1,4 +1,3 @@
-    
 const log        = require('../lib/log');
 const http       = require('../lib/http');
 const apiHandler = require('../lib/apiHandler');
