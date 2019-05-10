@@ -2,6 +2,7 @@ service: correlation-ids-demo
 
 plugins:
   - serverless-pseudo-parameters
+  - serverless-plugin-tracing
 
 provider:
   name: aws
@@ -9,8 +10,17 @@ provider:
   stage: dev
   region: eu-west-1
   profile: daswag-sandbox
+  tracing: true
 
   iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - xray:PutTelemetryRecords
+        - xray:PutTraceSegments
+        - xray:GetSamplingRules
+        - xray:GetSamplingTargets
+        - xray:GetSamplingStatisticSummaries
+      Resource: "*"
     - Effect: 'Allow'
       Action:
         - 'sns:Publish'

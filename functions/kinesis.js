@@ -3,6 +3,11 @@ const kinesisHandler = require('../lib/kinesisHandler');
 const http           = require('../lib/http');
 const reqContext     = require('../lib/requestContext');
 
+const AWSXRay        = require('aws-xray-sdk');
+const tracer         = require('dd-trace').init()
+
+AWSXRay.captureHTTPsGlobal(require('http'));
+
 // the KinesisHandler abstraction takes in a function that processes one
 // record at a time so to allow us to inject the correlation IDs that
 // corresponds to each record

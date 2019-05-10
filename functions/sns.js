@@ -1,7 +1,12 @@
 const log        = require('../lib/log');
-const snsHandler = require('../lib/snsHandler');
+const snsHandler = require('../lib/snshandler');
 const http       = require('../lib/http');
 const reqContext = require('../lib/requestContext');
+
+const AWSXRay    = require('aws-xray-sdk');
+const tracer     = require('dd-trace').init()
+
+AWSXRay.captureHTTPsGlobal(require('http'));
 
 module.exports.handler = snsHandler(
   async (event, context) => {

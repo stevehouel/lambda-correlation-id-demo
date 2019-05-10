@@ -1,5 +1,10 @@
 const log        = require('../lib/log');
-const apiHandler = require('../lib/apiHandler');
+const apiHandler = require('../lib/apihandler');
+
+const AWSXRay        = require('aws-xray-sdk');
+const tracer = require('dd-trace').init()
+
+AWSXRay.captureHTTPsGlobal(require('http'));
 
 module.exports.handler = apiHandler((event, context) => {
   log.debug("this is a DEBUG log");

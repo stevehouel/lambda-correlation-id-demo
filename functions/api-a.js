@@ -1,11 +1,16 @@
 const log        = require('../lib/log');
 const http       = require('../lib/http');
-const apiHandler = require('../lib/apiHandler');
 const sns        = require('../lib/sns');
 const kinesis    = require('../lib/kinesis');
 const reqContext = require('../lib/requestContext');
+const apiHandler = require('../lib/apihandler');
 const snsTopic   = process.env.snsTopic;
 const streamName = process.env.streamName;
+
+const AWSXRay        = require('aws-xray-sdk');
+const tracer = require('dd-trace').init()
+
+AWSXRay.captureHTTPsGlobal(require('http'));
 
 module.exports.handler = apiHandler(
   async (event, context) => {
